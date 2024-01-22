@@ -13,7 +13,7 @@ class Register extends Component
     #[Rule(['required', 'max:255'])]
     public ?string $name = null;
 
-    #[Rule(['required', 'email', 'max:255', 'confirmed'])]
+    #[Rule(['required', 'email', 'max:255', 'confirmed', 'unique:users,email'])]
     public ?string $email = null;
 
     public ?string $email_confirmation = null;
