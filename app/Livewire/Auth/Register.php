@@ -3,11 +3,13 @@
 namespace App\Livewire\Auth;
 
 use App\Models\User;
+use App\Notifications\WelcomeNotification;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Contracts\View\View;
-use Livewire\Attributes\Rule;
+use Livewire\Attributes\{Layout, Rule};
 use Livewire\Component;
 
+#[Layout('components.layouts.guest')]
 class Register extends Component
 {
     #[Rule(['required', 'max:255'])]
@@ -23,8 +25,7 @@ class Register extends Component
 
     public function render(): View
     {
-        return view('livewire.auth.register')
-            ->layout('components.layouts.guest');
+        return view('livewire.auth.register');
     }
 
     public function submit(): void
@@ -39,6 +40,8 @@ class Register extends Component
 
         /** @var User $user */
         auth()->login($user);
+
+        $user->notify(new WelcomeNotification());
 
         $this->redirect(RouteServiceProvider::HOME);
 
