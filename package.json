@@ -1,9 +1,10 @@
-{
+    {
     "private": true,
     "type": "module",
     "scripts": {
         "dev": "vite",
-        "build": "vite build"
+        "build": "vite build",
+        "prepare": "husky install"
     },
     "devDependencies": {
         "autoprefixer": "^10.4.16",
