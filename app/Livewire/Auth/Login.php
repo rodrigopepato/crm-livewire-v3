@@ -5,8 +5,10 @@ namespace App\Livewire\Auth;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\{Auth, RateLimiter};
 use Illuminate\Support\Str;
+use Livewire\Attributes\Layout;
 use Livewire\Component;
 
+#[Layout('components.layouts.guest')]
 class Login extends Component
 {
     public ?string $email;
@@ -20,6 +22,11 @@ class Login extends Component
 
     public function tryToLogin(): void
     {
+        if (empty($this->email) || empty($this->password)) {
+
+            return;
+        }
+
         if($this->ensureIsNotRateLimiting()) {
             return;
         }
