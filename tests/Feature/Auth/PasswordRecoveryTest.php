@@ -34,3 +34,15 @@ it('should be able to request for a password recovery seding notification to the
     );
 
 });
+
+test('testing email property', function ($value, $rule) {
+
+    Livewire::test(Recovery::class)
+        ->set('email', $value)
+        ->call('startPasswordRecovery')
+        ->assertHasErrors(['email' => $rule]);
+
+})->with([
+    'required' => ['value' => '', 'rule' => 'required'],
+    'email'    => ['value' => 'any email', 'rule' => 'email'],
+]);
