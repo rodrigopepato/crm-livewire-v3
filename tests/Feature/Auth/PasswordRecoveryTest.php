@@ -10,7 +10,7 @@ use function Pest\Laravel\{assertDatabaseCount, assertDatabaseHas, get};
 
 test('needs to have a route to password recovery', function () {
 
-    get(route('auth.password.recovery'))
+    get(route('password.recovery'))
         ->assertSeeLivewire('auth.password.recovery');
 
 });
