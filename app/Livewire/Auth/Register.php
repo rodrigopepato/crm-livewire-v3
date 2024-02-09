@@ -9,7 +9,6 @@ use Illuminate\Contracts\View\View;
 use Livewire\Attributes\{Layout, Rule};
 use Livewire\Component;
 
-#[Layout('components.layouts.guest')]
 class Register extends Component
 {
     #[Rule(['required', 'max:255'])]
@@ -23,6 +22,7 @@ class Register extends Component
     #[Rule(['required'])]
     public ?string $password = null;
 
+    #[Layout('components.layouts.guest')]
     public function render(): View
     {
         return view('livewire.auth.register');
