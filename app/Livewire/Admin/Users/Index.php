@@ -4,7 +4,8 @@ namespace App\Livewire\Admin\Users;
 
 use App\Models\{Can, User};
 use Illuminate\Contracts\View\View;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\{Builder, Collection};
+use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 
@@ -14,6 +15,8 @@ use Livewire\Component;
  */
 class Index extends Component
 {
+    public ?string $search = null;
+
     public function mount(): void
     {
 
@@ -29,7 +32,22 @@ class Index extends Component
     #[Computed()]
     public function users(): Collection
     {
-        return User::all();
+        return User::query()
+            ->when(
+                $this->search,
+                fn (Builder $q) => $q
+                    ->where(
+                        DB::raw('lower(name)'),
+                        'like',
+                        '%' . strtolower($this->search) . '%'
+                    )
+                    ->orWhere(
+                        'email',
+                        'like',
+                        '%' . strtolower($this->search) . '%'
+                    )
+            )
+            ->get();
     }
 
     #[Computed()]
