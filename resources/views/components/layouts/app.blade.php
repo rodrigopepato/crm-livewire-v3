@@ -44,18 +44,16 @@
                     </x-list-item>
                 @endif
 
-                <x-menu-item title="Hello" icon="o-sparkles" link="/" />
+                <x-menu-item title="Home" icon="o-home" link="/" />
 
-                <x-menu-sub title="Settings" icon="o-cog-6-tooth">
-                    <x-menu-item title="Wifi" icon="o-wifi" link="####" />
-                    <x-menu-item title="Archives" icon="o-archive-box" link="####" />
-                </x-menu-sub>
+                
 
-                @can(\App\Models\Can::BE_AN_ADMIN->value)
+            @can(\App\Models\Can::BE_AN_ADMIN->value)
                 <x-menu-sub title="Admin" icon="o-lock-closed">
-                    <x-menu-item title="Dashboard" icon="o-chart-bar-square" :link="route('admin.dashboard')" />
+                    <x-menu-item title="Dashboard" icon="o-chart-bar-square" :link="route('admin.dashboard')"/>
+                    <x-menu-item title="Users" icon="o-users" :link="route('admin.users')"/>
                 </x-menu-sub>
-                @endcan
+            @endcan
                 
             </x-menu>
         </x-slot:sidebar>
