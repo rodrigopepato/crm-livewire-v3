@@ -143,7 +143,7 @@ it('should be able to sort by name', function () {
 
     Livewire::test(Admin\Users\Index::class)
     ->set('sortDirection', 'asc')
-    ->set('sortColumby', 'name')
+    ->set('sortColumnBy', 'name')
     ->assertSet('users', function ($users) {
         expect($users)
             ->first()->name->toBe('Joe Doe')
@@ -152,7 +152,7 @@ it('should be able to sort by name', function () {
         return true;
     })
     ->set('sortDirection', 'desc')
-    ->set('sortColumby', 'name')
+    ->set('sortColumnBy', 'name')
     ->assertSet('users', function ($users) {
         expect($users)
             ->first()->name->toBe('Mario')

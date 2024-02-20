@@ -25,7 +25,7 @@ class Index extends Component
 
     public string $sortDirection = 'asc';
 
-    public string $sortColumBy = 'id';
+    public string $sortColumnBy = 'id';
 
     public function mount(): void
     {
@@ -71,7 +71,7 @@ class Index extends Component
                 $this->search_trash,
                 fn (Builder $q) => $q->onlyTrashed() /** @phpstan-ignore-line */
             )
-            ->orderBy($this->sortColumBy, $this->sortDirection)
+            ->orderBy($this->sortColumnBy, $this->sortDirection)
             ->get();
     }
 
@@ -79,10 +79,10 @@ class Index extends Component
     public function headers(): array
     {
         return [
-            ['key' => 'id', 'label' => '#'],
-            ['key' => 'name', 'label' => 'Name'],
-            ['key' => 'email', 'label' => 'Email'],
-            ['key' => 'permissions', 'label' => 'Permissions'],
+            ['key' => 'id', 'label' => '#', 'sortColumnBy' => $this->sortColumnBy, 'sortDirection' => $this->sortDirection],
+            ['key' => 'name', 'label' => 'Name', 'sortColumnBy' => $this->sortColumnBy, 'sortDirection' => $this->sortDirection],
+            ['key' => 'email', 'label' => 'Email', 'sortColumnBy' => $this->sortColumnBy, 'sortDirection' => $this->sortDirection],
+            ['key' => 'permissions', 'label' => 'Permissions', 'sortColumnBy' => $this->sortColumnBy, 'sortDirection' => $this->sortDirection],
         ];
     }
 
@@ -92,5 +92,11 @@ class Index extends Component
             ->when($value, fn (Builder $q) => $q->where('key', 'like', "%$value%"))
             ->orderBy('key')
             ->get();
+    }
+
+    public function sortBy(string $column, string $direction): void
+    {
+        $this->sortColumnBy  = $column;
+        $this->sortDirection = $direction;
     }
 }
