@@ -46,6 +46,6 @@ it('should send a notification to the user telling him that he has no long acces
     actingAs($user);
 
     Livewire::test(Delete::class, ['user' => $forDeletion])
-        ->set('confirmation_confirmation', 'DART VADE')
+        ->set('confirmation_confirmation', 'DART VADER')
         ->call('destroy');
 });
