@@ -1,15 +1,12 @@
-<div>
-    <x-button icon="o-trash" @click="$wire.modal = true" spinner class="btn-sm"/>
-
     <x-modal wire:model="modal"
-             title="Deletion Confirmation"
-             subtitle="You are deleting the user {{ $user->name }}"
-             separator>
-             
+            title="Deletion Confirmation"
+            subtitle="You are deleting the user {{ $user?->name }}"
+            separator>
+
         @error('confirmation')
-        <x-alert icon="o-exclamation-triangle" class="alert-error mb-4">
-            {{ $message }}
-        </x-alert>
+            <x-alert icon="o-exclamation-triangle" class="alert-error mb-4">
+                {{ $message }}
+            </x-alert>
         @enderror
 
 
@@ -24,4 +21,3 @@
             <x-button label="Confirm" class="btn-primary" wire:click="destroy"/>
         </x-slot:actions>
     </x-modal>
-</div>
