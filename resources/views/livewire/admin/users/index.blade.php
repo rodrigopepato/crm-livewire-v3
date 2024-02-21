@@ -58,6 +58,16 @@
         @endscope
 
         @scope('actions', $user)
+
+        <div class="flex items-center space-x-2">
+            <x-button
+                id="show-btn-{{ $user->id }}"
+                wire:key="show-btn-{{ $user->id }}"
+                icon="o-eye"
+                wire:click="showUser({{ $user->id }})"
+                spinner class="btn-sm"
+            />
+
         @can(App\Models\Can::BE_AN_ADMIN->value)
             @unless($user->trashed())
                 @unless($user->is(auth()->user()))
@@ -76,7 +86,7 @@
                     class="btn-sm btn-success btn-ghost"
                 />
             @endunless
-        @endcan
+        @endcan </div>
         @endscope
 
     </x-table>
