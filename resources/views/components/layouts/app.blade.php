@@ -9,6 +9,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="min-h-screen font-sans antialiased bg-base-200/50 dark:bg-base-200">
+    <x-toast/>
 
     {{-- NAVBAR mobile only --}}
     <x-nav sticky class="lg:hidden">
@@ -38,7 +39,7 @@
                     <x-list-item :item="$user" sub-value="username" no-separator no-hover class="!-mx-2 mt-2 mb-5 border-y border-y-sky-900">
                         <x-slot:actions>
                             <div class="tooltip tooltip-left" data-tip="logoff">
-                                <livewire:auth.logout />
+                                <livewire:auth.logout c/>
                             </div>
                         </x-slot:actions>
                     </x-list-item>

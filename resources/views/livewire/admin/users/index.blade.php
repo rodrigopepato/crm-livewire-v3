@@ -25,7 +25,8 @@
             label="Show Deleted Users"
             wire:model.live="search_trash"
             class="checkbox-primary"
-            right tight/>
+            right tight
+        />
 
         <x-select
             wire:model.live="perPage"
@@ -57,16 +58,28 @@
         @endscope
 
         @scope('actions', $user)
+        @can(App\Models\Can::BE_AN_ADMIN->value)
             @unless($user->trashed())
-                <x-button icon="o-trash" wire:click="delete({{ $user->id }})" spinner class="btn-sm"/>
+                @unless($user->is(auth()->user()))
+                    <x-button
+                        id="delete-btn-{{ $user->id }}"
+                        wire:key="delete-btn-{{ $user->id }}"
+                        icon="o-trash"
+                        wire:click="destroy('{{ $user->id }}')"
+                        spinner class="btn-sm"
+                    />
+                @endif
             @else
                 <x-button icon="o-arrow-path-rounded-square" wire:click="restore({{ $user->id }})" spinner
-                      class="btn-sm btn-success btn-ghost"/>
+                          class="btn-sm btn-success btn-ghost"/>
             @endunless
+        @endcan
         @endscope
 
     </x-table>
 
     {{ $this->users->links() }}
+
+    <livewire:admin.users.delete/>
     
 </div>
