@@ -49,6 +49,7 @@ class UserFactory extends Factory
     {
         return $this->state(fn (array $attributes) => [
             'deleted_at' => now(),
+            'deleted_by' => User::factory()->admin(),
         ]);
     }
 }
