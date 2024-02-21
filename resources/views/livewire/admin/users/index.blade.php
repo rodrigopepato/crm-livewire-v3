@@ -85,5 +85,6 @@
 
     <livewire:admin.users.delete/>
     <livewire:admin.users.restore/>
+    <livewire:admin.users.show/>
     
 </div>
