@@ -20,6 +20,10 @@ class Impersonate extends Component
     {
         $this->authorize(Can::BE_AN_ADMIN->value);
 
+        if(auth()->id() == $userId) {
+            throw new \Exception('You can not impersonate yourself.');
+        }
+
         session()->put('impersonator', auth()->id());
         session()->put('impersonate', $userId);
 
