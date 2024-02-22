@@ -18,5 +18,8 @@ class UsersSeeder extends Seeder
 
         User::factory()->count(50)->create();
         User::factory()->count(10)->deleted()->create();
+
+        // $user = User::find(3);
+        // $user->givePermissionTo(Can::BE_AN_ADMIN);
     }
 }

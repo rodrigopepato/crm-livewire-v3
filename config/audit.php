@@ -42,9 +42,10 @@ return [
     |
     */
     'resolvers' => [
-        'ip_address' => OwenIt\Auditing\Resolvers\IpAddressResolver::class,
-        'user_agent' => OwenIt\Auditing\Resolvers\UserAgentResolver::class,
-        'url'        => OwenIt\Auditing\Resolvers\UrlResolver::class,
+        'ip_address'        => OwenIt\Auditing\Resolvers\IpAddressResolver::class,
+        'user_agent'        => OwenIt\Auditing\Resolvers\UserAgentResolver::class,
+        'url'               => OwenIt\Auditing\Resolvers\UrlResolver::class,
+        'impersonated_user' => \App\Audit\ImpersonatorResolver::class,
     ],
 
     /*
