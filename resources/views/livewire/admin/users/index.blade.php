@@ -63,7 +63,7 @@
             <x-button
                 id="show-btn-{{ $user->id }}"
                 wire:key="show-btn-{{ $user->id }}"
-                icon="o-eye"
+                icon="o-pencil"
                 wire:click="showUser({{ $user->id }})"
                 spinner class="btn-sm"
             />
@@ -78,6 +78,15 @@
                         wire:click="destroy('{{ $user->id }}')"
                         spinner class="btn-sm"
                     />
+
+                    <x-button
+                    id="impersonate-btn-{{ $user->id }}"
+                    wire:key="impersonate-btn-{{ $user->id }}"
+                    icon="o-eye"
+                    wire:click="impersonate('{{ $user->id }}')"
+                    spinner class="btn-sm"
+                />
+
                 @endif
             @else
                 <x-button
@@ -96,5 +105,6 @@
     <livewire:admin.users.delete/>
     <livewire:admin.users.restore/>
     <livewire:admin.users.show/>
+    <livewire:admin.users.impersonate/>
     
 </div>
