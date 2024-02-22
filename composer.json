@@ -12,6 +12,7 @@
         "laravel/tinker": "^2.8",
         "livewire/livewire": "^3.3",
         "livewire/volt": "^1.6",
+        "owen-it/laravel-auditing": "^13.6",
         "robsontenorio/mary": "^1.18"
     },
     "require-dev": {
