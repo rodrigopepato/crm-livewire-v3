@@ -8,6 +8,9 @@ use Illuminate\Support\Str;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
+/**
+ * @property-read Collection|User[] $users
+ */
 class Login extends Component
 {
     public ?string $email;
