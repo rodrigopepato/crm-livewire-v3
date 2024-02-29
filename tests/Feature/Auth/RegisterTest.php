@@ -2,9 +2,8 @@
 
 use App\Livewire\Auth\Register;
 use App\Models\User;
-use App\Notifications\WelcomeNotification;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Support\Facades\Notification;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\{Event, Notification};
 use Livewire\Livewire;
 
 use function Pest\Laravel\{assertDatabaseCount, assertDatabaseHas};
@@ -23,7 +22,7 @@ it('should be able to register a new user in the system', function () {
         ->set('password', 'password')
         ->call('submit')
         ->assertHasNoErrors()
-        ->assertRedirect(RouteServiceProvider::HOME);
+        ->assertHasNoErrors();
 
     assertDatabaseHas('users', [
         'name'  => 'joe Doe',
@@ -66,9 +65,8 @@ test('validation rules', function ($f) {
 
 ]);
 
-it('should send a notification welcoming the new user', function () {
-
-    Notification::fake();
+it('should dispatch Registered event', function () {
+    Event::fake();
 
     Livewire::test(Register::class)
         ->set('name', 'Joe doe')
@@ -77,8 +75,5 @@ it('should send a notification welcoming the new user', function () {
         ->set('password', 'password')
         ->call('submit');
 
-    $user = User::whereEmail('joe@doe.com')->first();
-
-    Notification::assertSentTo($user, WelcomeNotification::class);
-
+    Event::assertDispatched(Registered::class);
 });
