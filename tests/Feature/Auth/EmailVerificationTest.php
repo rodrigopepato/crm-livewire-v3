@@ -18,6 +18,7 @@ beforeEach(function () {
 describe('after registration', function () {
 
     it("should create a new validation code and save in the users table", function () {
+
         $user = User::factory()->create(['email_verified_at' => null, 'validation_code' => null]);
 
         $event    = new Registered($user);
@@ -58,6 +59,7 @@ describe('after registration', function () {
 describe('validation page', function () {
 
     it('should redirect to the validation page after registration', function () {
+
         Livewire::test(Register::class)
             ->set('name', 'Joe doe')
             ->set('email', 'joe@doe.com')
@@ -69,6 +71,7 @@ describe('validation page', function () {
     });
 
     it('should check if the code is valid', function () {
+
         $user = User::factory()->withValidationCode()->create();
 
         actingAs($user);
@@ -77,6 +80,20 @@ describe('validation page', function () {
             ->set('code', '000000')
             ->call('handle')
             ->assertHasErrors(['code']);
+    });
+
+    it('should be able to send a new code to the user', function () {
+
+        $user    = User::factory()->withValidationCode()->create();
+        $oldCode = $user->validation_code;
+
+        actingAs($user);
+
+        Livewire::test(EmailValidation::class)
+            ->call('sendNewCode');
+
+        expect($user)->validation_code->not->toBe($oldCode);
+        Notification::assertSentTo($user, ValidationCodeNotification::class);
     });
 
 });
