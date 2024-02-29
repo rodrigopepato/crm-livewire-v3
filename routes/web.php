@@ -1,6 +1,6 @@
 <?php
 
-use App\Livewire\Auth\{Login, Password, Register};
+use App\Livewire\Auth\{EmailValidation, Login, Password, Register};
 use App\Livewire\{Admin, Welcome};
 use App\Models\Can;
 use Illuminate\Support\Facades\Route;
@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Route;
 //region Login Flow
 Route::get('/login', Login::class)->name('login');
 Route::get('/register', Register::class)->name('auth.register');
-Route::get('/email-validation', fn () => 'oi')->middleware('auth')->name('auth.email-validation');
+Route::get('/email-validation', EmailValidation::class)->middleware('auth')->name('auth.email-validation');
 Route::get('/logout', fn () => auth()->logout());
 Route::get('/password/recovery', Password\Recovery::class)->name('password.recovery');
 Route::get('/password/reset', Password\Reset::class)->name('password.reset');
