@@ -18,6 +18,12 @@ Route::get('/password/reset', Password\Reset::class)->name('password.reset');
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/', Welcome::class)->name('dashboard');
 
+    //region Customers
+    Route::get('/customers', fn () => 'oi')->name('customers');
+
+    //endregion
+
+
     //region Admin
     Route::prefix('/admin')->middleware('can:' . Can::BE_AN_ADMIN->value)->group(function () {
         Route::get('/dashboard', Admin\Dashboard::class)->name('admin.dashboard');
