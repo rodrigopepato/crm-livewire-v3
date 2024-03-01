@@ -3,6 +3,8 @@
 namespace App\Livewire\Customers;
 
 use App\Models\Customer;
+use App\Support\Table\Header;
+use App\Traits\Livewire\HasTable;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
@@ -15,14 +17,7 @@ use Livewire\{Attributes\Computed, Component, WithPagination};
 class Index extends Component
 {
     use WithPagination;
-
-    public ?string $search = null;
-
-    public string $sortDirection = 'asc';
-
-    public string $sortColumnBy = 'id';
-
-    public int $perPage = 15;
+    use HasTable;
 
     public function render(): View
     {
@@ -39,13 +34,12 @@ class Index extends Component
             ->paginate($this->perPage);
     }
 
-    #[Computed]
-    public function headers(): array
+    public function tableHeaders(): array
     {
         return [
-            ['key' => 'id', 'label' => '#', 'sortColumnBy' => $this->sortColumnBy, 'sortDirection' => $this->sortDirection],
-            ['key' => 'name', 'label' => 'Name', 'sortColumnBy' => $this->sortColumnBy, 'sortDirection' => $this->sortDirection],
-            ['key' => 'email', 'label' => 'Email', 'sortColumnBy' => $this->sortColumnBy, 'sortDirection' => $this->sortDirection],
+            Header::make('id', '#'),
+            Header::make('name', 'Name'),
+            Header::make('email', 'Email'),
         ];
     }
 }
