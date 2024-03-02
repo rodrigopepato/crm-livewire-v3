@@ -1,6 +1,7 @@
 <?php
 
 use App\Livewire\Auth\{EmailValidation, Login, Password, Register};
+use App\Livewire\Customers;
 use App\Livewire\{Admin, Welcome};
 use App\Models\Can;
 use Illuminate\Support\Facades\Route;
@@ -17,6 +18,11 @@ Route::get('/password/reset', Password\Reset::class)->name('password.reset');
 //region Authenticated
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/', Welcome::class)->name('dashboard');
+
+    //region Customers
+    Route::get('/customers', Customers\Index::class)->name('customers');
+
+    //endregion
 
     //region Admin
     Route::prefix('/admin')->middleware('can:' . Can::BE_AN_ADMIN->value)->group(function () {

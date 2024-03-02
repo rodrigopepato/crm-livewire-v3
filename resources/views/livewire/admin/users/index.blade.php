@@ -36,7 +36,7 @@
 
     </div>
 
-    <x-table :headers="$this->headers" :rows="$this->users">
+    <x-table :headers="$this->headers" :rows="$this->items">
 
         @scope('header_id', $header)
         <x-table.th :$header name="id"/>
@@ -100,7 +100,7 @@
 
     </x-table>
 
-    {{ $this->users->links() }}
+    {{ $this->items->links() }}
 
     <livewire:admin.users.delete/>
     <livewire:admin.users.restore/>
