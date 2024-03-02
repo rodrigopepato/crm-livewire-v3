@@ -5,10 +5,8 @@ namespace App\Livewire\Admin\Users;
 use App\Models\{Can, Permission, User};
 use App\Support\Table\Header;
 use App\Traits\Livewire\HasTable;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\{Builder, Collection};
-use Livewire\Attributes\Computed;
 use Livewire\{Attributes\On, Component, WithPagination};
 
 /**
@@ -46,15 +44,11 @@ class Index extends Component
         $this->resetPage();
     }
 
-    #[Computed()]
-    public function users(): LengthAwarePaginator
+    public function query(): Builder
     {
-
-        $this->validate(['search_permissions' => 'exists:permissions,id']);
 
         return User::query()
             ->with('permissions')
-            ->search($this->search, ['name', 'email'])
             ->when(
                 $this->search_permissions,
                 fn (Builder $q) => $q->whereHas('permissions', function (Builder $query) {
@@ -64,9 +58,12 @@ class Index extends Component
             ->when(
                 $this->search_trash,
                 fn (Builder $q) => $q->onlyTrashed() /** @phpstan-ignore-line */
-            )
-            ->orderBy($this->sortColumnBy, $this->sortDirection)
-            ->paginate($this->perPage);
+            );
+    }
+
+    public function searchColumns(): array
+    {
+        return ['name', 'email'];
     }
 
     public function tableHeaders(): array
@@ -85,12 +82,6 @@ class Index extends Component
             ->when($value, fn (Builder $q) => $q->where('key', 'like', "%$value%"))
             ->orderBy('key')
             ->get();
-    }
-
-    public function sortBy(string $column, string $direction): void
-    {
-        $this->sortColumnBy  = $column;
-        $this->sortDirection = $direction;
     }
 
     public function destroy(int $id): void

@@ -17,8 +17,19 @@
         />
     </div>
 
-    <x-table :headers="$this->headers" :rows="$this->customers">
+    <x-table :headers="$this->headers" :rows="$this->items">
+        @scope('header_id', $header)
+        <x-table.th :$header name="id"/>
+        @endscope
+
+        @scope('header_name', $header)
+        <x-table.th :$header name="name"/>
+        @endscope
+
+        @scope('header_email', $header)
+        <x-table.th :$header name="email"/>
+        @endscope
     </x-table>
 
-    {{ $this->customers->links(data: ['scrollTo' => false]) }}
+    {{ $this->items->links() }}
 </div>
