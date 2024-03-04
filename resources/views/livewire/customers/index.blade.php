@@ -1,7 +1,6 @@
 <div>
     <livewire:customers.archive/>
     <x-header title="Customers" separator/>
-
     <div class="mb-4 flex space-x-4">
         <div class="w-1/3">
             <x-input
@@ -15,8 +14,16 @@
             :options="[['id'=>5,'name'=>5], ['id'=>15,'name'=>15], ['id'=>25,'name'=>25], ['id'=>50,'name'=>50]]"
             label="Records Per Page"
         />
+
+        <x-checkbox
+            label="Show Archived Customers"
+            wire:model.live="search_trash"
+            class="checkbox-primary"
+            right tight/>
     </div>
+
     <x-table :headers="$this->headers" :rows="$this->items">
+
         @scope('header_id', $header)
         <x-table.th :$header name="id"/>
         @endscope
@@ -30,7 +37,6 @@
         @endscope
 
         @scope('actions', $customer)
-
         <div class="flex items-center space-x-2">
             <x-button
                 id="archive-btn-{{ $customer->id }}"
@@ -41,8 +47,7 @@
             />
         </div>
         @endscope
-
+        
     </x-table>
-
-    {{ $this->items->links() }}
+    {{ $this->items->links(data: ['scrollTo' => false]) }}
 </div>
