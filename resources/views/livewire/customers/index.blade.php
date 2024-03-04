@@ -18,7 +18,8 @@
             />
         </div>
 
-        <x-button @click="$dispatch('customer::create')" label="New Customer" icon="o-plus"/>
+        <x-button @click="$dispatch('customer::create')" label="New Customer" icon="o-plus" class="bg-gray-700 text-white"/>
+
     </div>
 
     <x-table :headers="$this->headers" :rows="$this->items">
