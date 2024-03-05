@@ -36,6 +36,7 @@ test("let's create a livewire component to list all customers in the page", func
 });
 
 test('check the table format', function () {
+
     actingAs(User::factory()->admin()->create());
 
     Livewire::test(Customers\Index::class)
@@ -47,6 +48,7 @@ test('check the table format', function () {
 });
 
 it('should be able to filter by name and email', function () {
+
     $user  = User::factory()->create();
     $joe   = Customer::factory()->create(['name' => 'Joe Doe', 'email' => 'admin@gmail.com']);
     $mario = Customer::factory()->create(['name' => 'Mario', 'email' => 'little_guy@gmail.com']);
@@ -60,6 +62,7 @@ it('should be able to filter by name and email', function () {
             return true;
         })
         ->set('search', 'mar')
+        ->assertPropertyWired('search')
         ->assertSet('items', function ($items) {
             expect($items)
                 ->toHaveCount(1)
@@ -78,6 +81,7 @@ it('should be able to filter by name and email', function () {
 });
 
 it('should be able to sort by name', function () {
+
     $user  = User::factory()->create();
     $joe   = Customer::factory()->create(['name' => 'Joe Doe', 'email' => 'admin@gmail.com']);
     $mario = Customer::factory()->create(['name' => 'Mario', 'email' => 'little_guy@gmail.com']);
@@ -106,6 +110,7 @@ it('should be able to sort by name', function () {
 });
 
 it('should be able to paginate the result', function () {
+
     $user = User::factory()->create();
     Customer::factory()->count(30)->create();
 
@@ -119,6 +124,7 @@ it('should be able to paginate the result', function () {
             return true;
         })
         ->set('perPage', 20)
+        ->assertPropertyWired('perPage')
         ->assertSet('items', function (LengthAwarePaginator $items) {
             expect($items)
                 ->toHaveCount(20);

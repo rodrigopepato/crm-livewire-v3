@@ -8,6 +8,7 @@ use Livewire\Livewire;
 use function Pest\Laravel\{actingAs, assertNotSoftDeleted, assertSoftDeleted};
 
 it('should be able to delete a user', function () {
+
     $user        = User::factory()->admin()->create();
     $forDeletion = User::factory()->create();
 
@@ -28,6 +29,7 @@ it('should be able to delete a user', function () {
 });
 
 it('should have a confirmation before deletion', function () {
+
     $user        = User::factory()->admin()->create();
     $forDeletion = User::factory()->create();
 
@@ -58,6 +60,7 @@ it('should send a notification to the user telling him that he has no long acces
 });
 
 it('should not be possible to delete the logged user', function () {
+
     $user = User::factory()->admin()->create();
 
     actingAs($user);
@@ -65,8 +68,17 @@ it('should not be possible to delete the logged user', function () {
         ->set('user', $user)
         ->set('confirmation_confirmation', 'DART VADER')
         ->call('destroy')
+        ->assertMethodWired('destroy')
         ->assertHasErrors(['confirmation'])
         ->assertNotDispatched('user::deleted');
 
     assertNotSoftDeleted('users', ['id' => $user->id]);
+});
+
+test('check if component is in the page', function () {
+
+    actingAs(User::factory()->admin()->create());
+
+    Livewire::test(Admin\Users\Index::class)
+        ->assertContainsLivewireComponent('admin.users.delete');
 });
