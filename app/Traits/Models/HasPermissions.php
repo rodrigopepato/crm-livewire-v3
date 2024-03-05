@@ -1,13 +1,12 @@
 <?php
 
-
 namespace App\Traits\Models;
 
-use App\Models\Can;
-use App\Models\Permission;
+use App\Models\{Can, Permission};
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Facades\Cache;
+
 trait HasPermissions
 {
     public function permissions(): BelongsToMany
