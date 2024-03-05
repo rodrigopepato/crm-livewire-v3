@@ -58,7 +58,16 @@ it('should send a notification to the user telling him that he has again access 
     Livewire::test(Admin\Users\Restore::class)
         ->set('user', $forRestoration)
         ->set('confirmation_confirmation', 'YODA')
-        ->call('restore');
+        ->call('restore')
+        ->assertMethodWired('restore');
 
     Notification::assertSentTo($forRestoration, UserRestoredAccessNotification::class);
+});
+
+test('check if component is in the page', function () {
+
+    actingAs(User::factory()->admin()->create());
+
+    Livewire::test(Admin\Users\Index::class)
+        ->assertContainsLivewireComponent('admin.users.restore');
 });

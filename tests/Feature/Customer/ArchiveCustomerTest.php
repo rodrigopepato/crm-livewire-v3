@@ -51,6 +51,7 @@ test('after archiving we should close the modal', function () {
 });
 
 it('should list archived items', function () {
+
     Customer::factory()->count(2)->create();
     $archived = Customer::factory()->deleted()->create();
 
@@ -75,5 +76,16 @@ it('should list archived items', function () {
 
             return true;
         });
+});
 
+test('making sure archive method is wired', function () {
+
+    Livewire::test(Customers\Archive::class)
+        ->assertMethodWired('archive');
+});
+
+test('check if component is in the page', function () {
+
+    Livewire::test(Customers\Index::class)
+        ->assertContainsLivewireComponent('customers.archive');
 });

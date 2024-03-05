@@ -1,6 +1,6 @@
 <?php
 
-use App\Livewire\Admin\Users\{Impersonate, StopImpersonate};
+use App\Livewire\Admin\Users\{Impersonate, Index, StopImpersonate};
 use App\Models\User;
 use Livewire\Livewire;
 
@@ -100,3 +100,11 @@ it('should not be possible to impersonate myself', function () {
         ->call('impersonate', $admin->id);
 
 })->throws(Exception::class);
+
+test('check if component is in the page', function () {
+
+    actingAs(User::factory()->admin()->create());
+
+    Livewire::test(Index::class)
+        ->assertContainsLivewireComponent('admin.users.impersonate');
+});
