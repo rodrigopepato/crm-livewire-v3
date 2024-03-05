@@ -57,6 +57,7 @@
     {{ $this->items->links() }}
 
     <livewire:customers.create/>
+    <livewire:customers.update/>
     <livewire:customers.archive/>
     <livewire:customers.restore/>
 </div>
