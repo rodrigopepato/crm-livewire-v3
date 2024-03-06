@@ -3,9 +3,9 @@
     <x-form wire:submit="save" id="create-customer-form">
         <hr class="my-5"/>
         <div class="space-y-2">
-            <x-input label="Name" wire:model="name"/>
-            <x-input label="Email" wire:model="email"/>
-            <x-input label="Phone" wire:model="phone"/>
+            <x-input label="Name" wire:model="form.name"/>
+            <x-input label="Email" wire:model="form.email"/>
+            <x-input label="Phone" wire:model="form.phone"/>
         </div>
         <x-slot:actions>
             <x-button label="Cancel" @click="$wire.modal = false"/>
