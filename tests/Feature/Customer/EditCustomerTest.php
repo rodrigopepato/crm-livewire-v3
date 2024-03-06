@@ -110,7 +110,7 @@ describe('validations', function () {
         ->set('form.email', 'joe@doe.com')
         ->set('form.phone', '')
         ->call('save')
-        ->assertHasNoErrors(['phone' => 'required_without']);
+        ->assertHasNoErrors(['form.phone' => 'required_without']);
 
     });
 
