@@ -2,7 +2,7 @@
 
 use App\Livewire\Auth\{EmailValidation, Login, Password, Register};
 use App\Livewire\Customers;
-use App\Livewire\{Admin, Welcome};
+use App\Livewire\{Admin, Opportunities, Welcome};
 use App\Models\Can;
 use Illuminate\Support\Facades\Route;
 
@@ -23,6 +23,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/customers', Customers\Index::class)->name('customers');
     Route::get('/customers/{customer}', fn () => 'oi')->name('customers.show');
 
+    //endregion
+
+    //region Opportunities
+    Route::get('/opportunities', Opportunities\Index::class)->name('opportunities');
     //endregion
 
     //region Admin
