@@ -3,21 +3,27 @@
 namespace App\Livewire\Forms;
 
 use App\Models\Customer;
-use Livewire\Attributes\{Rule, Validate};
+use Illuminate\Validation\Rule;
 use Livewire\Form as BaseForm;
 
 class Form extends BaseForm
 {
     public ?Customer $customer = null;
 
-    #[Rule(['required', 'min:3', 'max:255'])]
     public string $name = '';
 
-    #[Rule(['required_without:phone', 'email', 'unique:customers'])]
     public string $email = '';
 
-    #[Rule(['required_without:email', 'unique:customers'])]
     public string $phone = '';
+
+    public function rules(): array
+    {
+        return [
+            'name'  => ['required', 'min:3', 'max:255'] ,
+            'email' => ['required_without:phone', 'email', Rule::unique('customers')->ignore($this->customer?->id)],
+            'phone' => ['required_without:email', Rule::unique('customers')->ignore($this->customer?->id)],
+        ];
+    }
 
     public function setCustomer(Customer $customer): void
     {
@@ -38,6 +44,8 @@ class Form extends BaseForm
             'email' => $this->email,
             'phone' => $this->phone,
         ]);
+
+        $this->reset();
     }
 
     public function update(): void
