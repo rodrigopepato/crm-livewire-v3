@@ -19,7 +19,7 @@ class Show extends Component
     }
 
     #[On('user::show')]
-    public function loadUser(int $id): void
+    public function load(int $id): void
     {
         $this->user  = User::withTrashed()->find($id);
         $this->modal = true;

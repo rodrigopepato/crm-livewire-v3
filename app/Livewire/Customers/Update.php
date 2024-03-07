@@ -2,13 +2,15 @@
 
 namespace App\Livewire\Customers;
 
+use App\Livewire\Forms\Form;
 use App\Models\Customer;
 use Illuminate\Contracts\View\View;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Update extends Component
 {
-    public Customer $customer;
+    public Form $form;
 
     public bool $modal = false;
 
@@ -25,11 +27,21 @@ class Update extends Component
         return view('livewire.customers.update');
     }
 
+    #[On('customer::update')]
+    public function load(int $id): void
+    {
+        $customer = Customer::find($id);
+        $this->form->setCustomer($customer);
+
+        $this->form->resetErrorBag();
+        $this->modal = true;
+    }
+
     public function save(): void
     {
-        $this->validate();
+        $this->form->update();
 
-        $this->customer->update();
+        $this->modal = false;
 
     }
 }
