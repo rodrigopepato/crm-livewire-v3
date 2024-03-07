@@ -30,5 +30,6 @@ class Create extends Component
         $this->form->create();
 
         $this->modal = false;
+        $this->dispatch('customer::reload')->to('customers.index');
     }
 }

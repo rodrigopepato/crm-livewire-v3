@@ -42,6 +42,7 @@ class Update extends Component
         $this->form->update();
 
         $this->modal = false;
+        $this->dispatch('customer::reload')->to('customers.index');
 
     }
 }
