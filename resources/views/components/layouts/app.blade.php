@@ -58,7 +58,8 @@
                 @endif
 
                 <x-menu-item title="Home" icon="o-home" :link="route('dashboard')"/>
-                <x-menu-item title="Customers" icon="o-building-storefront" :link="route('customers')"/>                
+                <x-menu-item title="Customers" icon="o-building-storefront" :link="route('customers')"/>
+                <x-menu-item title="Opportunities" icon="o-currency-dollar" :link="route('opportunities')"/>                
 
             @can(\App\Models\Can::BE_AN_ADMIN->value)
                 <x-menu-sub title="Admin" icon="o-lock-closed">

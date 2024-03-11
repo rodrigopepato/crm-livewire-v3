@@ -24,7 +24,7 @@
                 right tight/>
         </div>
 
-        <x-button @click="$dispatch('opportunity::create')" label="New Customer" icon="o-plus"/>
+        <x-button @click="$dispatch('opportunity::create')" label="New Opportunity" icon="o-plus"/> 
     </div>
 
     <x-table :headers="$this->headers" :rows="$this->items">
