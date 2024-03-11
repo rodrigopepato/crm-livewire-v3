@@ -18,7 +18,7 @@ it('should be able to create a customer', function () {
         ->assertPropertyWired('form.title')
         ->set('form.status', 'won')
         ->assertPropertyWired('form.status')
-        ->set('form.amount', '123456789')
+        ->set('form.amount', '123.45')
         ->assertPropertyWired('form.amount')
         ->call('save')
         ->assertMethodWiredToForm('save')
@@ -27,7 +27,7 @@ it('should be able to create a customer', function () {
     assertDatabaseHas('opportunities', [
         'title'  => 'John Doe',
         'status' => 'won',
-        'amount' => '123456789',
+        'amount' => '12345',
     ]);
 });
 
