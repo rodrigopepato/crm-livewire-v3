@@ -6,6 +6,9 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ isset($title) ? $title.' - '.config('app.name') : config('app.name') }}</title>
 
+    <script type="text/javascript"
+    src="https://cdn.jsdelivr.net/gh/robsontenorio/mary@0.44.2/libs/currency/currency.js"></script>
+    
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="min-h-screen font-sans antialiased bg-base-200/50 dark:bg-base-200">
@@ -58,7 +61,8 @@
                 @endif
 
                 <x-menu-item title="Home" icon="o-home" :link="route('dashboard')"/>
-                <x-menu-item title="Customers" icon="o-building-storefront" :link="route('customers')"/>                
+                <x-menu-item title="Customers" icon="o-building-storefront" :link="route('customers')"/>
+                <x-menu-item title="Opportunities" icon="o-currency-dollar" :link="route('opportunities')"/>                
 
             @can(\App\Models\Can::BE_AN_ADMIN->value)
                 <x-menu-sub title="Admin" icon="o-lock-closed">
