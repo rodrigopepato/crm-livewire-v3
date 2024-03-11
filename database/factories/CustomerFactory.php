@@ -2,10 +2,13 @@
 
 namespace Database\Factories;
 
+use App\Traits\Factory\HasDeleted;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CustomerFactory extends Factory
 {
+    use HasDeleted;
+
     public function definition(): array
     {
         return [
@@ -30,12 +33,5 @@ class CustomerFactory extends Factory
             'company'  => $this->faker->company,
             'position' => $this->faker->jobTitle,
         ];
-    }
-
-    public function deleted(): static
-    {
-        return $this->state(fn (array $attributes) => [
-            'deleted_at' => now(),
-        ]);
     }
 }
