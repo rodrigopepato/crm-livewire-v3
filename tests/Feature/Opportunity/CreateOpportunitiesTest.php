@@ -11,7 +11,7 @@ beforeEach(function () {
     actingAs($user);
 });
 
-it('should be able to create a customer', function () {
+it('should be able to create an opportunity', function () {
 
     Livewire::test(Opportunities\Create::class)
         ->set('form.title', 'John Doe')
